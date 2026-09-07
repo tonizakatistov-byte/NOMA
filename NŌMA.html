@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NŌMA — Эстетика молчаливых форм</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1a2f7a;
+    --navy-dark:#12215c;
+    --cream:#fbfaf7;
+    --ink:#1c1c1c;
+    --line:#e7e5df;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter',sans-serif;
+    color:var(--ink);
+    background:#fff;
+    line-height:1.5;
+  }
+  h1,h2,h3,.serif{font-family:'Playfair Display',serif;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 32px;}
+  section{padding:64px 0;}
+  @media(max-width:640px){section{padding:46px 0;} .wrap{padding:0 20px;}}
+
+  /* Header */
+  header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 32px;border-bottom:1px solid var(--line);
+    flex-wrap:wrap;gap:16px;
+  }
+  .logo{display:flex;align-items:center;gap:10px;}
+  .logo img{width:44px;height:44px;object-fit:contain;}
+  .logo-text{font-family:'Playfair Display',serif;font-weight:800;font-size:20px;letter-spacing:2px;color:var(--navy);}
+  nav{display:flex;align-items:center;gap:28px;flex-wrap:wrap;}
+  nav a{font-size:15px;color:var(--ink);white-space:nowrap;}
+  nav a:hover{color:var(--navy);}
+  .header-right{display:flex;align-items:center;gap:16px;}
+  .phone-link{font-weight:600;white-space:nowrap;}
+  .social-icons{display:flex;gap:8px;}
+  .social-icons a{
+    width:34px;height:34px;border-radius:50%;background:var(--navy);
+    display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;overflow:hidden;
+  }
+  .social-icons img{width:20px;height:20px;object-fit:contain;}
+  .lang{display:flex;gap:10px;font-size:13px;color:#888;}
+
+  /* Hero */
+  .hero{text-align:center;padding:64px 0 28px;}
+  .hero h1{font-size:clamp(30px,5vw,52px);color:var(--navy);font-weight:800;line-height:1.15;max-width:900px;margin:0 auto 26px;}
+  .hero p{font-size:19px;color:#444;max-width:560px;margin:0 auto;}
+
+  .hero-images{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:44px;}
+  .hero-images img{width:100%;height:460px;object-fit:cover;}
+  @media(max-width:768px){.hero-images{grid-template-columns:1fr;} .hero-images img{height:300px;}}
+
+  /* About */
+  .about{text-align:center;}
+  .eyebrow{font-size:13px;letter-spacing:1px;color:#777;margin-bottom:14px;}
+  .about h2{font-size:clamp(26px,4vw,40px);color:var(--navy);margin-bottom:24px;}
+  .about p{max-width:640px;margin:0 auto 18px;font-size:17px;color:#333;}
+  .about p.lead{font-weight:600;color:var(--ink);}
+  .btn-pill{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--navy);color:#fff;padding:16px 34px;border-radius:32px;
+    font-weight:600;font-size:15px;border:none;cursor:pointer;margin-top:30px;
+    transition:background .2s ease;
+  }
+  .btn-pill:hover{background:var(--navy-dark);}
+
+  /* Catalog */
+  .catalog h2{text-align:center;font-size:clamp(26px,4vw,40px);color:var(--navy);margin-bottom:34px;}
+  .products{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+  @media(max-width:900px){.products{grid-template-columns:1fr;}}
+  .product-card img{width:100%;height:340px;object-fit:cover;border-radius:2px;}
+  .product-card{position:relative;}
+  .fav-btn{
+    position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;
+    background:#fff;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 2px 8px rgba(0,0,0,.12);font-size:15px;cursor:pointer;
+  }
+  .product-info{padding-top:18px;}
+  .product-info h3{font-size:18px;font-weight:600;margin-bottom:6px;font-family:'Inter',sans-serif;}
+  .product-info .desc{font-size:14px;color:#5a6bb0;margin-bottom:10px;}
+  .price{font-size:16px;margin-bottom:16px;}
+  .price .old{color:#aaa;text-decoration:line-through;margin-left:8px;font-size:14px;}
+  .product-actions{display:flex;gap:10px;flex-wrap:wrap;}
+  .btn-outline,.btn-solid{
+    flex:1;padding:12px 16px;border-radius:24px;font-size:14px;font-weight:600;
+    border:1px solid var(--navy);cursor:pointer;text-align:center;white-space:nowrap;
+  }
+  .btn-solid{background:var(--navy);color:#fff;}
+  .btn-outline{background:#fff;color:var(--navy);}
+  .btn-outline:hover{background:#f2f3fa;}
+  .btn-solid:hover{background:var(--navy-dark);}
+
+  /* Modal */
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(15,18,40,.55);display:none;
+    align-items:flex-start;justify-content:center;padding:40px 20px;z-index:100;overflow:auto;
+  }
+  .modal-overlay.open{display:flex;}
+  .modal{
+    background:#fff;max-width:960px;width:100%;padding:40px;position:relative;
+    display:grid;grid-template-columns:1fr 1fr;gap:44px;
+  }
+  @media(max-width:720px){.modal{grid-template-columns:1fr;padding:24px;}}
+  .modal-close{position:absolute;top:20px;right:24px;font-size:24px;background:none;border:none;cursor:pointer;color:#222;}
+  .modal img{width:100%;object-fit:cover;}
+  .modal h3{font-size:26px;margin-bottom:14px;}
+  .modal .price{font-size:20px;}
+  .modal .desc-full{color:#333;font-size:15px;margin-top:18px;line-height:1.7;}
+  .modal-buy-row{display:flex;align-items:center;gap:14px;margin:20px 0;}
+
+  /* Custom order */
+  .order{background:var(--cream);}
+  .order-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
+  @media(max-width:800px){.order-inner{grid-template-columns:1fr;}}
+  .order h2{text-align:center;grid-column:1/-1;color:var(--navy);font-size:clamp(26px,4vw,40px);}
+  .order .sub{text-align:center;grid-column:1/-1;font-size:19px;margin-top:12px;margin-bottom:20px;color:#333;}
+  .order img{width:100%;border-radius:2px;}
+  .order .caption{font-size:14px;color:#555;margin-top:16px;}
+  .form-label{font-size:14px;color:var(--navy);margin-bottom:6px;display:block;font-weight:500;}
+  .form-field{margin-bottom:26px;}
+  .form-field input,.form-field textarea{
+    width:100%;border:none;border-bottom:1px solid #cfcfcf;background:transparent;
+    padding:8px 0;font-size:15px;font-family:inherit;color:#222;
+  }
+  .form-field input:focus,.form-field textarea:focus{outline:none;border-color:var(--navy);}
+  .phone-row{display:flex;align-items:center;gap:10px;border-bottom:1px solid #cfcfcf;padding:8px 0;}
+  .phone-row select{border:none;background:transparent;font-size:15px;}
+  .phone-row input{border:none;flex:1;font-size:15px;font-family:inherit;}
+
+  /* Interior carousel */
+  .interior h2{color:var(--navy);font-size:clamp(26px,4vw,40px);margin-bottom:18px;}
+  .interior p{max-width:640px;color:#333;font-size:16px;margin-bottom:32px;}
+  .carousel{position:relative;}
+  .carousel-track-wrap{overflow:hidden;}
+  .carousel-track{display:flex;transition:transform .4s ease;}
+  .carousel-track img{width:100%;flex:0 0 100%;height:520px;object-fit:cover;}
+  @media(max-width:640px){.carousel-track img{height:320px;}}
+  .car-btn{
+    position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;
+    background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.15);border:none;cursor:pointer;font-size:18px;
+    display:flex;align-items:center;justify-content:center;z-index:5;
+  }
+  .car-prev{left:16px;} .car-next{right:16px;}
+  .dots{display:flex;justify-content:center;gap:10px;margin-top:18px;}
+  .dot{width:8px;height:8px;border-radius:50%;background:#d8d8d8;cursor:pointer;border:none;}
+  .dot.active{background:var(--navy);}
+  .pinterest-row{text-align:center;margin-top:30px;}
+  .btn-pinterest{
+    display:inline-block;background:#e60023;color:#fff;font-weight:700;
+    padding:18px 40px;border-radius:32px;font-size:16px;
+  }
+  .btn-pinterest:hover{background:#c8001d;}
+
+  /* Contacts */
+  .contacts .wrap{display:grid;grid-template-columns:1fr 1.3fr;gap:0;align-items:center;}
+  @media(max-width:800px){.contacts .wrap{grid-template-columns:1fr;gap:36px;}}
+  .contacts h2{color:var(--navy);font-size:clamp(26px,4vw,40px);margin-bottom:26px;}
+  .contacts .c-line{font-size:17px;margin-bottom:10px;color:#333;}
+  .contacts .c-line a{color:var(--navy);}
+  .map-frame{width:100%;height:420px;border:0;border-radius:4px;}
+
+  /* Footer */
+  footer{background:var(--navy);color:#fff;padding:32px;}
+  .footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;max-width:1200px;margin:0 auto;}
+  .footer-inner .social-icons a{background:rgba(255,255,255,.15);}
+
+  /* Help bubble */
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="https://static.tildacdn.com/tild6438-3131-4364-b738-643861346562/image.png" alt="NŌMA">
+  </div>
+  <nav>
+    <a href="#about">О нас</a>
+    <a href="#catalog">Каталог</a>
+    <a href="#order">Индивидуальный заказ</a>
+    <a href="#interior">Интерьер &amp; вдохновение</a>
+    <a href="#contacts">Контакты</a>
+  </nav>
+  <div class="header-right">
+    <a class="phone-link" href="tel:+79095152112">+7 909 515 21 12</a>
+    <div class="social-icons">
+      <a href="#" aria-label="VK"><img src="https://i.ibb.co/hRtp6DJ4/icons8-vk-1000.png" alt="VK"></a>
+      <a href="#" aria-label="Telegram"><img src="https://logo-teka.com/wp-content/uploads/2025/06/telegram-logo.png" alt="Telegram"></a>
+    </div>
+    <div class="lang"><span>EN</span><span>ES</span></div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <h1>NŌMA — Эстетика молчаливых форм</h1>
+    <p>Мы создаём предметы, которые не кричат, но заставляют смотреть дважды</p>
+  </div>
+  <div class="hero-images">
+    <img src="https://static.tildacdn.com/tild6566-3934-4561-b235-343237663134/55.png" alt="Интерьер со свечами и ягодами">
+    <img src="https://static.tildacdn.com/tild3765-3065-4064-a530-653737626233/ChatGPT_Image_6__202.png" alt="Синяя ваза с цветами">
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="eyebrow">О НАС</div>
+    <h2>История бренда</h2>
+    <p class="lead">История NŌMA началась с идеи превратить тишину формы в язык искусства.</p>
+    <p>Мы вдохновляемся природой, архитектурой и светом — всем, что рождает эмоцию без слов.</p>
+    <p>Каждая ваза создаётся вручную и несёт в себе характер мастера, уникальность материала и внутренний ритм.</p>
+    <button class="btn-pill">♥ Узнайте больше…</button>
+  </div>
+</section>
+
+<section class="catalog" id="catalog">
+  <div class="wrap">
+    <h2>Каталог ваз</h2>
+    <div class="products">
+
+      <article class="product-card" data-modal="p1">
+        <div style="position:relative">
+          <img src="https://static.tildacdn.com/tild6434-3334-4835-b435-326666343862/image.png" alt="Kersten">
+          <div class="fav-btn">♡</div>
+        </div>
+        <div class="product-info">
+          <h3>Kersten</h3>
+          <div class="desc">Коричневая декоративная ваза. Боб.</div>
+          <div class="price">103 001 р. <span class="old">153 001 р.</span></div>
+          <div class="product-actions">
+            <button class="btn-outline" onclick="openModal('p1')">Подробнее…</button>
+            <button class="btn-solid">Добавить в корзину</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card" data-modal="p2">
+        <div style="position:relative">
+          <img src="https://static.tildacdn.com/tild3833-3533-4665-b165-326133373661/image.png" alt="Mandarin Decor Лира">
+          <div class="fav-btn">♡</div>
+        </div>
+        <div class="product-info">
+          <h3>MANDARIN DECOR</h3>
+          <div class="desc">Ваза стеклянная. Лира</div>
+          <div class="price">35 300 р. <span class="old">80 300 р.</span></div>
+          <div class="product-actions">
+            <button class="btn-outline" onclick="openModal('p2')">Подробнее…</button>
+            <button class="btn-solid">Добавить в корзину</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="product-card" data-modal="p3">
+        <div style="position:relative">
+          <img src="https://static.tildacdn.com/tild3630-3466-4730-b234-656135323830/image.png" alt="Mandarin Decor Осло">
+          <div class="fav-btn">♡</div>
+        </div>
+        <div class="product-info">
+          <h3>MANDARIN DECOR</h3>
+          <div class="desc">Белая ваза керамическая. Осло</div>
+          <div class="price">98 339 р.</div>
+          <div class="product-actions">
+            <button class="btn-outline" onclick="openModal('p3')">Подробнее…</button>
+            <button class="btn-solid">Добавить в корзину</button>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- Modals -->
+<div class="modal-overlay" id="modal-p1">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('p1')">✕</button>
+    <img src="https://static.tildacdn.com/tild6434-3334-4835-b435-326666343862/image.png" alt="Kersten">
+    <div>
+      <h3>Kersten</h3>
+      <div class="price">103 001 р. <span class="old">153 001 р.</span></div>
+      <div class="modal-buy-row"><button class="btn-solid" style="flex:none;padding:14px 30px">Купить сейчас</button><div class="fav-btn" style="position:static">♡</div></div>
+      <p class="desc-full">Скульптурная форма с ритмичными вертикальными складками создаёт ощущение движения и динамики. Матовая поверхность подчёркивает фактуру материала, делая вазу выразительным объектом даже без наполнения. Идеален как самостоятельный арт-акцент в современном интерьере.</p>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-p2">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('p2')">✕</button>
+    <img src="https://static.tildacdn.com/tild3833-3533-4665-b165-326133373661/image.png" alt="Mandarin Decor Лира">
+    <div>
+      <h3>MANDARIN DECOR</h3>
+      <div class="price">35 300 р. <span class="old">80 300 р.</span></div>
+      <div class="modal-buy-row"><button class="btn-solid" style="flex:none;padding:14px 30px">Купить сейчас</button><div class="fav-btn" style="position:static">♡</div></div>
+      <p class="desc-full">Вертикальные рёбра из прозрачного стекла мягко преломляют свет, создают эффект рассеяния и лёгкого сияния. Лаконичное сочетание стекла и металлического основания придаёт вазе архитектурный характер. Идеально подчёркивает цветочные композиции и сохраняет выразительность даже в пустом виде.</p>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-p3">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('p3')">✕</button>
+    <img src="https://static.tildacdn.com/tild3630-3466-4730-b234-656135323830/image.png" alt="Mandarin Decor Осло">
+    <div>
+      <h3>MANDARIN DECOR</h3>
+      <div class="price">98 339 р.</div>
+      <div class="modal-buy-row"><button class="btn-solid" style="flex:none;padding:14px 30px">Купить сейчас</button><div class="fav-btn" style="position:static">♡</div></div>
+      <p class="desc-full">Минималистичная форма с мягким овальным проёмом создаёт ощущение баланса и спокойствия. Ритмичная текстура поверхности подчёркивает чистоту линий и надёжность силуэта. Ваза работает как самостоятельный арт-объект и идеально подходит для лаконичных композиций.</p>
+    </div>
+  </div>
+</div>
+
+<section class="order" id="order">
+  <div class="wrap order-inner">
+    <h2>Хотите быть еще уникальнее?</h2>
+    <p class="sub">Оставьте заявку на изготовление уникальной вазы!</p>
+    <div>
+      <img src="https://static.tildacdn.com/tild3834-3835-4062-a537-393063376433/generated.jpg" alt="Мастер с готовой вазой">
+      <p class="caption">Мы ежедневно прилагаем все усилия, чтобы наши клиенты были довольны</p>
+    </div>
+    <form onsubmit="event.preventDefault(); alert('Спасибо! Заявка отправлена.');">
+      <p style="margin-bottom:24px;color:#333">Заполните простую форму и мы свяжемся с вами!</p>
+      <div class="form-field">
+        <label class="form-label">Ваш Email</label>
+        <input type="email" required>
+      </div>
+      <div class="form-field">
+        <label class="form-label">Ваше полное имя</label>
+        <input type="text" required>
+      </div>
+      <div class="form-field">
+        <label class="form-label">Ваш телефон</label>
+        <div class="phone-row">
+          <select><option>🇷🇴 +40</option><option>🇷🇺 +7</option></select>
+          <input type="tel" placeholder="00-000-0000">
+        </div>
+      </div>
+      <div class="form-field">
+        <label class="form-label">Расскажите о ваших смелых идеях</label>
+        <textarea rows="4"></textarea>
+      </div>
+      <button class="btn-pill" type="submit">★ Отправить</button>
+    </form>
+  </div>
+</section>
+
+<section class="interior" id="interior">
+  <div class="wrap">
+    <h2>Интерьер &amp; вдохновение</h2>
+    <p>Подборка интерьеров, которые раскрывают характер наших ваз. Больше образов и идей — на нашей доске вдохновения.</p>
+
+    <div class="carousel">
+      <div class="carousel-track-wrap">
+        <div class="carousel-track" id="carTrack">
+          <img src="https://static.tildacdn.com/tild3564-3632-4864-b130-313739663434/photo-1561030144-775.jpg" alt="Интерьер 1">
+          <img src="https://static.tildacdn.com/tild3435-3961-4363-b338-323664663330/photo-1619911000556-.jpg" alt="Интерьер 2">
+          <img src="https://static.tildacdn.com/tild3062-6138-4263-b936-333662383961/photo-1619911004446-.jpg" alt="Интерьер 3">
+          <img src="https://static.tildacdn.com/tild3263-6630-4332-a231-656231306637/photo-1739656442658-.jpg" alt="Интерьер 4">
+          <img src="https://static.tildacdn.com/tild3336-3835-4131-b264-623437373863/photo-1758789898279-.jpg" alt="Интерьер 5">
+        </div>
+      </div>
+      <button class="car-btn car-prev" onclick="moveCarousel(-1)">‹</button>
+      <button class="car-btn car-next" onclick="moveCarousel(1)">›</button>
+    </div>
+    <div class="dots" id="carDots"></div>
+
+    <div class="pinterest-row">
+      <a class="btn-pinterest" href="https://pin.it/3wcpLoCkm" target="_blank" rel="noopener">Доска на Pinterest</a>
+    </div>
+  </div>
+</section>
+
+<section class="contacts" id="contacts">
+  <div class="wrap">
+    <div>
+      <h2>Наши контакты</h2>
+      <div class="c-line"><a href="tel:+79095152112">+7 (909) 515-21-12</a></div>
+      <div class="c-line"><a href="mailto:contact@noma.studio">contact@noma.studio</a></div>
+      <div class="social-icons" style="margin-top:20px">
+        <a href="#" aria-label="Telegram"><img src="https://logo-teka.com/wp-content/uploads/2025/06/telegram-logo.png" alt="Telegram"></a>
+        <a href="#" aria-label="VK"><img src="https://i.ibb.co/hRtp6DJ4/icons8-vk-1000.png" alt="VK"></a>
+      </div>
+    </div>
+    <iframe class="map-frame" src="https://yandex.ru/map-widget/v1/?ll=37.6176%2C55.7558&z=11" loading="lazy" title="Карта"></iframe>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>© All Rights Reserved. NŌMA Inc.</div>
+    <div class="social-icons">
+      <a href="#" aria-label="Telegram"><img src="https://logo-teka.com/wp-content/uploads/2025/06/telegram-logo.png" alt="Telegram"></a>
+      <a href="#" aria-label="VK"><img src="https://i.ibb.co/hRtp6DJ4/icons8-vk-1000.png" alt="VK"></a>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  function openModal(id){ document.getElementById('modal-'+id).classList.add('open'); }
+  function closeModal(id){ document.getElementById('modal-'+id).classList.remove('open'); }
+  document.querySelectorAll('.modal-overlay').forEach(function(ov){
+    ov.addEventListener('click', function(e){ if(e.target === ov) ov.classList.remove('open'); });
+  });
+
+  // Carousel
+  var track = document.getElementById('carTrack');
+  var slides = track.children.length;
+  var idx = 0;
+  var dotsWrap = document.getElementById('carDots');
+  for(var i=0;i<slides;i++){
+    var d = document.createElement('button');
+    d.className = 'dot' + (i===0 ? ' active' : '');
+    d.onclick = (function(n){ return function(){ idx = n; updateCarousel(); }; })(i);
+    dotsWrap.appendChild(d);
+  }
+  function updateCarousel(){
+    track.style.transform = 'translateX(-' + (idx*100) + '%)';
+    var dots = dotsWrap.children;
+    for(var j=0;j<dots.length;j++){ dots[j].classList.toggle('active', j===idx); }
+  }
+  function moveCarousel(dir){
+    idx = (idx + dir + slides) % slides;
+    updateCarousel();
+  }
+</script>
+
+</body>
+</html>
